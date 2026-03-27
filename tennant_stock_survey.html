@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback – Live Stock Report | Tennant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       🎨 TENNANT BRAND VARIABLES
+       Colors from official Tennant Color Palette
+       ============================================================ */
+    :root {
+      --brand-teal:      #009AC7;   /* Tennant Teal — primary */
+      --brand-dark-blue: #015570;   /* Dark Blue — deep accent */
+      --brand-orange:    #F47B29;   /* Orange — CTA / highlight */
+      --brand-lime:      #8DC63F;   /* Lime — success / positive */
+      --brand-black:     #000000;   /* Black */
+      --brand-dark-gray: #898B8E;   /* Dark Gray */
+      --brand-cool-gray: #A8A8AA;   /* Cool Gray */
+      --brand-light-gray:#F1F2F2;   /* Light Gray — backgrounds */
+      --brand-white:     #FFFFFF;
+
+      /* Semantic mappings */
+      --brand-primary:   var(--brand-dark-blue);
+      --brand-accent:    var(--brand-teal);
+      --brand-cta:       var(--brand-orange);
+      --brand-bg:        var(--brand-light-gray);
+      --brand-text:      var(--brand-black);
+      --brand-muted:     var(--brand-dark-gray);
+      --brand-border:    var(--brand-cool-gray);
+      --brand-card-bg:   var(--brand-light-gray);
+      --brand-success:   var(--brand-lime);
+
+      --font-body:       'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+      --radius:          6px;
+      --shadow:          0 2px 16px rgba(1,85,112,0.10);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--brand-bg);
+      color: var(--brand-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px 60px;
+    }
+
+    /* ============================================================
+       HEADER
+       ============================================================ */
+    header {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0 20px;
+      border-bottom: 2px solid var(--brand-teal);
+      margin-bottom: 36px;
+    }
+
+    .logo-area img {
+      height: 48px;
+      width: auto;
+      display: block;
+    }
+
+    .header-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand-teal);
+      background: rgba(0,154,199,0.08);
+      border: 1px solid rgba(0,154,199,0.25);
+      padding: 5px 12px;
+      border-radius: 3px;
+    }
+
+    /* ============================================================
+       INTRO CARD
+       ============================================================ */
+    .intro-card {
+      width: 100%;
+      max-width: 680px;
+      background: var(--brand-dark-blue);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .intro-card::after {
+      content: '';
+      position: absolute;
+      right: -40px; top: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(0,154,199,0.12);
+      pointer-events: none;
+    }
+    .intro-card::before {
+      content: '';
+      position: absolute;
+      right: 60px; bottom: -20px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(244,123,41,0.12);
+      pointer-events: none;
+    }
+    .intro-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand-teal);
+      margin-bottom: 12px;
+    }
+    .intro-title {
+      font-size: clamp(1.4rem, 4vw, 1.85rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+    .intro-body {
+      font-size: 0.97rem;
+      color: rgba(255,255,255,0.80);
+      line-height: 1.7;
+      max-width: 520px;
+      font-weight: 300;
+    }
+    .intro-meta {
+      margin-top: 22px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .meta-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.02em;
+    }
+    .meta-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--brand-teal);
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       PROGRESS BAR
+       ============================================================ */
+    .progress-bar-wrap {
+      width: 100%;
+      max-width: 680px;
+      margin-bottom: 20px;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--brand-muted);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: var(--brand-cool-gray);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--brand-teal);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    /* ============================================================
+       FORM CARD
+       ============================================================ */
+    .form-card {
+      width: 100%;
+      max-width: 680px;
+      background: var(--brand-white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+      border-top: 3px solid var(--brand-teal);
+    }
+
+    /* ============================================================
+       QUESTION BLOCK
+       ============================================================ */
+    .question-block {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .question-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .q-number {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 3px;
+      background: var(--brand-teal);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      letter-spacing: 0.02em;
+    }
+    .question-label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brand-primary);
+      line-height: 1.4;
+    }
+    .question-hint {
+      font-size: 0.82rem;
+      color: var(--brand-muted);
+      margin-left: 38px;
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       OPTIONS — radio style
+       ============================================================ */
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-left: 38px;
+    }
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 1.5px solid var(--brand-border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      font-size: 0.93rem;
+      color: var(--brand-text);
+      user-select: none;
+      font-weight: 400;
+    }
+    .option-label:hover {
+      border-color: var(--brand-teal);
+      background: rgba(0,154,199,0.04);
+    }
+    .option-label input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 17px; height: 17px;
+      border: 2px solid var(--brand-border);
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: border-color 0.15s;
+      position: relative;
+    }
+    .option-label input[type="radio"]:checked {
+      border-color: var(--brand-teal);
+      background: var(--brand-teal);
+      box-shadow: inset 0 0 0 3px #fff;
+    }
+    .option-label:has(input:checked) {
+      border-color: var(--brand-teal);
+      background: rgba(0,154,199,0.06);
+      color: var(--brand-dark-blue);
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       NUMBER SCALE
+       ============================================================ */
+    .scale-group {
+      display: flex;
+      gap: 8px;
+      margin-left: 38px;
+      flex-wrap: wrap;
+    }
+    .scale-btn {
+      width: 52px; height: 52px;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--brand-border);
+      background: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--brand-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+    }
+    .scale-btn:hover {
+      border-color: var(--brand-teal);
+      color: var(--brand-teal);
+      background: rgba(0,154,199,0.05);
+    }
+    .scale-btn.active {
+      border-color: var(--brand-teal);
+      background: var(--brand-teal);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(0,154,199,0.30);
+    }
+    .scale-labels {
+      margin-left: 38px;
+      display: flex;
+      justify-content: space-between;
+      max-width: 288px;
+      font-size: 0.74rem;
+      color: var(--brand-muted);
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       TEXTAREA
+       ============================================================ */
+    textarea {
+      margin-left: 38px;
+      width: calc(100% - 38px);
+      min-height: 108px;
+      border: 1.5px solid var(--brand-border);
+      border-radius: var(--radius);
+      padding: 13px 15px;
+      font-family: var(--font-body);
+      font-size: 0.93rem;
+      color: var(--brand-text);
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.15s;
+      background: #FAFCFD;
+      font-weight: 400;
+    }
+    textarea:focus {
+      border-color: var(--brand-teal);
+      background: #fff;
+    }
+    textarea::placeholder { color: var(--brand-cool-gray); }
+
+    /* ============================================================
+       DIVIDER
+       ============================================================ */
+    .divider {
+      height: 1px;
+      background: var(--brand-light-gray);
+      border: none;
+    }
+
+    /* ============================================================
+       SUBMIT BUTTON
+       ============================================================ */
+    .submit-area {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .submit-note {
+      font-size: 0.80rem;
+      color: var(--brand-muted);
+      font-weight: 400;
+    }
+    .btn-submit {
+      background: var(--brand-orange);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 13px 36px;
+      font-family: var(--font-body);
+      font-size: 0.97rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
+      box-shadow: 0 3px 12px rgba(244,123,41,0.30);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .btn-submit:hover {
+      background: #d8651a;
+      transform: translateY(-1px);
+      box-shadow: 0 5px 16px rgba(244,123,41,0.38);
+    }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* ============================================================
+       VALIDATION
+       ============================================================ */
+    .error-msg {
+      display: none;
+      margin-left: 38px;
+      font-size: 0.80rem;
+      color: #C0392B;
+      font-weight: 600;
+    }
+    .question-block.has-error .option-label {
+      border-color: #E8A0A0;
+    }
+    .question-block.has-error textarea {
+      border-color: #E8A0A0;
+    }
+    .question-block.has-error .error-msg { display: block; }
+
+    /* ============================================================
+       SUCCESS STATE
+       ============================================================ */
+    .success-panel {
+      display: none;
+      width: 100%;
+      max-width: 680px;
+      background: var(--brand-white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 56px 40px;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      border-top: 3px solid var(--brand-lime);
+    }
+    .success-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(141,198,63,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+    }
+    .success-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--brand-dark-blue);
+    }
+    .success-body {
+      font-size: 0.95rem;
+      color: var(--brand-muted);
+      line-height: 1.65;
+      max-width: 420px;
+      font-weight: 300;
+    }
+    .success-data {
+      margin-top: 20px;
+      background: var(--brand-light-gray);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      text-align: left;
+      font-size: 0.78rem;
+      font-family: 'Courier New', monospace;
+      color: var(--brand-dark-gray);
+      width: 100%;
+      max-width: 480px;
+      word-break: break-all;
+      border-left: 3px solid var(--brand-teal);
+    }
+    .success-data strong {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--brand-teal);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      margin-top: 36px;
+      font-size: 0.76rem;
+      color: var(--brand-cool-gray);
+      text-align: center;
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       MOBILE
+       ============================================================ */
+    @media (max-width: 540px) {
+      .form-card { padding: 24px 18px; }
+      .intro-card { padding: 26px 22px; }
+      .options-group, .scale-group, textarea, .scale-labels, .error-msg {
+        margin-left: 0;
+      }
+      textarea { width: 100%; }
+      .submit-area { flex-direction: column; align-items: stretch; }
+      .btn-submit { text-align: center; }
+      header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .intro-card { animation: fadeUp 0.45s ease both; }
+    .progress-bar-wrap { animation: fadeUp 0.45s ease 0.08s both; }
+    .form-card { animation: fadeUp 0.45s ease 0.14s both; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════ HEADER -->
+  <header>
+    <div class="logo-area">
+      <img src="data:image/webp;base64,UklGRlRNAABXRUJQVlA4WAoAAAAYAAAAfwcAxQIAVlA4THRMAAAvf0exEP8nJEj4Xx1ujfmdgERzHvSwbVu+NA9tYKMSJhZ2d4vd3Ynd7ezuwpit2A3qVNTZiomdiAGKIAoYGDTcf+Cc8sYXv4/jiOj/BJCpr7mFTZr0tllzORYqUrJKxTr167dt27Z3397DxgyfOGfm9EWr3Jeu3ebhsWnPES8vrwPeF87+9PR5X9+b///WxdNnf3rhxEEvL6/D+7d4eGxfv8x95dIZM+dMGj56pJubW/s27RrUq1epSunCRXLltkufPo2NhQWlamtmYZMus0P+UpVqNm7drf+wCbOWrNy4y/PE+Qs+133vPXj6LCDgbXBY+OevPxITINyEpOjIL+FhIW8DA/yfPrx364bPxfMnvHZvWrVk9sRh/bu3aVyrUmlnpyxpbSzNUkMxt0mXLX/JKq4tuw2aMNd9455j5y9fu/3g6Ys3IR8+/0iAvCclRn0KCwl68fThneuXLxzfs3HlvAmDe7SqX7WUs106G/PUOizSZM5XqnrTroMnzl+z8/gFH98HzwLefvgcA4Ud+yXsbcCzB74+F47vWjN/4pBuzWqUypcljUUqFOaZncvWadN3wvw1e//1uXn/WWBIRBRUy6iIkMBn92/6nN67dv6Efm3qlHXOYp76gnm2ghWbdB05e8nqLXsOnbz2JCQKqm70uyfXTh3as2X1kjmjujapVNDOPDUC27zlG3UfM2f5uu0Hj11+HBILVTvu3ROf4we3r1s+Z0z3RuXz2hr1WdiXrNd55JzlG3YeOnXz9Teo+N9e+546tHPD8jkjO9ctkdPc2C6zS80OI+a4b9zzz/lHHxKhSSa8f3T+yJ6N7nNGtq/hkskYLkPhmp3HzF/lcfDkzTfR0FijX18/ccBj1fzRnWoWzmCsZpa9TMP2fUZMcve6FhAFjTjq1TVP90nD+7RvWMbOsCxD8fptew+fsvrIzZAEaNrxb28eWjVleK+2rsVsjcCyV2jWecDYBbsuvYyGBh/14sLO+WP6d2pa3s5oK3PZJp0HjF104FpQAnSC8W+u7lswZkCnxqUzGVlZ5KvdtvfImdsuvIyFjjH2+XmPGSN6tamZx9wwytrBpWKjwUsP+YZBZ/n+5sFFAxtWLGJvZdBkkaNwhQYDl3rd+Qi9Z1LELc9F/V3LF85uboxkm69Uja6zdl4NTYTuNCHYZ/v0TtVL5k1nTJS1YLmGQ5Yf8/sBHey3J/8sHVC/rHMWY6CshSo0GbH2zOt46HBjA/79e1iD8gUzG/RY5m04bM2ZwHjogONe/btqSP1c5oY5dtX6Lv7n1vOP0BsnRfj7Hp7fq1IW4xqrgs0nbL/yKDgOOueYtw8ve4xpkt/SQCZd6S5zD/k+/wyd9Uf/mwdndiqWxtAlY4VeS0/eC/gOXffXV3eOLexaxtZgJW25nktP3HsdDR35j4A7xxd2LWVteGLh0mn2hoM3vkO3HnnlwPoZ7QqZGZHYN5mwes+FCOjkP5zdtXJMfTuDEKvSfRZvPfoCevykJ0e2LOhRzMK4w8517N97L3+B7j/iwu6VI2tnNtbI37zPXzueJsGkMP7BlvG9mzgZX7i07j/DMwgmjK/2TunbsoAhhVnRVv3nHA+FiWTQoRl9WxQyjijUqv+so+9hghnsOc2teT5jB6emfacc" alt="Tennant" />
+    </div>
+    <span class="header-tag">📊 Internal Feedback</span>
+  </header>
+
+  <!-- ═══════════════════════════════════════ PROGRESS -->
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span>Survey Progress</span>
+      <span id="progressText">0 / 4</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ INTRO -->
+  <div class="intro-card">
+    <p class="intro-eyebrow">Your voice matters</p>
+    <h1 class="intro-title">How are you using<br>the Live Stock Report?</h1>
+    <p class="intro-body">
+      We're continuously improving our operational tools, and your input is key.
+      This short, anonymous survey helps us understand how the Live Stock Report
+      fits into your daily workflow — and how we can make it even better.
+      Thank you for taking a moment to share your thoughts! 🙌
+    </p>
+    <div class="intro-meta">
+      <span class="meta-badge"><span class="meta-dot"></span> ~2 minutes</span>
+      <span class="meta-badge"><span class="meta-dot"></span> Anonymous</span>
+      <span class="meta-badge"><span class="meta-dot"></span> 4 questions</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ FORM -->
+  <div class="form-card" id="surveyForm">
+
+    <!-- Q1: Usage frequency -->
+    <div class="question-block" id="block-q1">
+      <div class="question-header">
+        <span class="q-number">1</span>
+        <label class="question-label">How often do you use the Live Stock Report?</label>
+      </div>
+      <div class="options-group">
+        <label class="option-label">
+          <input type="radio" name="q1" value="every_day" onchange="onOptionChange()"> Every day
+        </label>
+        <label class="option-label">
+          <input type="radio" name="q1" value="few_times_week" onchange="onOptionChange()"> A few times a week
+        </label>
+        <label class="option-label">
+          <input type="radio" name="q1" value="rarely" onchange="onOptionChange()"> Rarely
+        </label>
+        <label class="option-label">
+          <input type="radio" name="q1" value="never" onchange="onOptionChange()"> I never use it
+        </label>
+      </div>
+      <p class="error-msg">⚠️ Please select an option to continue.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Q2: Usefulness (1–5 scale) -->
+    <div class="question-block" id="block-q2">
+      <div class="question-header">
+        <span class="q-number">2</span>
+        <label class="question-label">How useful is the Live Stock Report for your work?</label>
+      </div>
+      <p class="question-hint">1 = Not useful at all &nbsp;·&nbsp; 5 = Extremely useful</p>
+      <div class="scale-group" id="scaleGroup">
+        <button class="scale-btn" type="button" data-value="1" onclick="selectScale(this)">1</button>
+        <button class="scale-btn" type="button" data-value="2" onclick="selectScale(this)">2</button>
+        <button class="scale-btn" type="button" data-value="3" onclick="selectScale(this)">3</button>
+        <button class="scale-btn" type="button" data-value="4" onclick="selectScale(this)">4</button>
+        <button class="scale-btn" type="button" data-value="5" onclick="selectScale(this)">5</button>
+      </div>
+      <div class="scale-labels">
+        <span>Not useful</span>
+        <span>Extremely useful</span>
+      </div>
+      <p class="error-msg">⚠️ Please select a value on the scale.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Q3: Clarity -->
+    <div class="question-block" id="block-q3">
+      <div class="question-header">
+        <span class="q-number">3</span>
+        <label class="question-label">Are the information and data presented in the report clear and easy to understand?</label>
+      </div>
+      <div class="options-group">
+        <label class="option-label">
+          <input type="radio" name="q3" value="clear" onchange="onOptionChange()"> ✅ Yes, very clear
+        </label>
+        <label class="option-label">
+          <input type="radio" name="q3" value="somewhat" onchange="onOptionChange()"> 🟡 Somewhat clear
+        </label>
+        <label class="option-label">
+          <input type="radio" name="q3" value="no" onchange="onOptionChange()"> ❌ No, it's confusing
+        </label>
+      </div>
+      <p class="error-msg">⚠️ Please select an option to continue.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Q4: Open suggestions -->
+    <div class="question-block" id="block-q4">
+      <div class="question-header">
+        <span class="q-number">4</span>
+        <label class="question-label">Do you have any suggestions or ideas to improve the report?</label>
+      </div>
+      <p class="question-hint">Optional — every idea is welcome!</p>
+      <textarea id="q4" name="q4" placeholder="e.g. Add a filter by category, make charts easier to read, include trend indicators..." oninput="onOptionChange()"></textarea>
+    </div>
+
+    <hr class="divider">
+
+    <!-- SUBMIT -->
+    <div class="submit-area">
+      <p class="submit-note">🔒 Responses are anonymous and for internal use only.</p>
+      <button class="btn-submit" onclick="submitSurvey()">Submit Feedback →</button>
+    </div>
+
+  </div><!-- /form-card -->
+
+  <!-- ═══════════════════════════════════════ SUCCESS -->
+  <div class="success-panel" id="successPanel">
+    <div class="success-icon">
+      <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#8DC63F" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+    <h2 class="success-title">Thank you!</h2>
+    <p class="success-body">
+      Your feedback has been successfully recorded.
+      Every response helps us make the Live Stock Report more useful for the entire team.
+    </p>
+    <div class="success-data">
+      <strong>📋 Collected Data (mock / JavaScript array)</strong>
+      <span id="responsePreview"></span>
+    </div>
+  </div>
+
+  <footer>
+    Tennant Company &nbsp;·&nbsp; Live Stock Report — Internal Feedback &nbsp;·&nbsp; <span id="currentYear"></span>
+  </footer>
+
+  <script>
+    // ═══════════════════════════════════════════════════
+    // MOCK DATA STORAGE
+    // Responses are accumulated in this array.
+    // In production: replace with a fetch() POST to your backend.
+    // ═══════════════════════════════════════════════════
+    const collectedResponses = [];
+    let selectedScale = null;
+
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    function getRadioValue(name) {
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : null;
+    }
+
+    function selectScale(btn) {
+      document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedScale = parseInt(btn.dataset.value);
+      document.getElementById('block-q2').classList.remove('has-error');
+      updateProgress();
+    }
+
+    function onOptionChange() {
+      updateProgress();
+    }
+
+    function updateProgress() {
+      let count = 0;
+      if (getRadioValue('q1')) count++;
+      if (selectedScale)        count++;
+      if (getRadioValue('q3')) count++;
+      if (document.getElementById('q4').value.trim()) count++;
+      // Q4 is optional but counts toward progress if filled
+      const required = getRadioValue('q1') ? 1 : 0;
+      const filled = [
+        getRadioValue('q1'),
+        selectedScale,
+        getRadioValue('q3'),
+      ].filter(Boolean).length;
+      const pct = Math.round((filled / 3) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressText').textContent = filled + ' / 3 required';
+    }
+
+    function submitSurvey() {
+      let valid = true;
+
+      const q1 = getRadioValue('q1');
+      document.getElementById('block-q1').classList.toggle('has-error', !q1);
+      if (!q1) valid = false;
+
+      document.getElementById('block-q2').classList.toggle('has-error', !selectedScale);
+      if (!selectedScale) valid = false;
+
+      const q3 = getRadioValue('q3');
+      document.getElementById('block-q3').classList.toggle('has-error', !q3);
+      if (!q3) valid = false;
+
+      if (!valid) {
+        const firstError = document.querySelector('.has-error');
+        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const response = {
+        id: Date.now(),
+        timestamp: new Date().toISOString(),
+        q1_usage_frequency: q1,
+        q2_usefulness_score: selectedScale,
+        q3_clarity: q3,
+        q4_suggestions: document.getElementById('q4').value.trim() || null,
+      };
+
+      collectedResponses.push(response);
+      console.log('📊 Tennant — Live Stock Feedback (mock):', collectedResponses);
+
+      // Full progress bar on submit
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('progressText').textContent = '✓ Completed';
+
+      document.getElementById('responsePreview').textContent =
+        JSON.stringify(response, null, 2);
+
+      document.getElementById('surveyForm').style.display = 'none';
+      const panel = document.getElementById('successPanel');
+      panel.style.display = 'flex';
+      panel.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
